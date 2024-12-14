@@ -13,7 +13,8 @@ header {
   background: linear-gradient(to right, #ff7e5f, #3498db); /* Pink to Blue gradient */
   color: white;
   padding: 20px;
-  border-bottom: 5px solid white; /* White border */
+  border-bottom: 5px solid transparent; /* Transparent border initially */
+  border-image: linear-gradient(to right, #ff7e5f, #3498db) 1; /* Gradient border */
 }
 
 h1 {
@@ -43,7 +44,8 @@ h1 {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   transition: transform 0.3s ease;
-  border: 0px solid white; /* White border for the timer cards */
+  border: 2px solid transparent; /* Transparent border */
+  border-image: linear-gradient(to right, #ff7e5f, #3498db) 1; /* Gradient border */
 }
 
 .timer:hover {
@@ -113,7 +115,8 @@ footer {
   padding: 20px;
   margin-top: 30px;
   font-size: 1.2em;
-  border-top: 0px ; /* White border */
+  border-top: 2px solid transparent; /* Transparent border */
+  border-image: linear-gradient(to right, #ff7e5f, #3498db) 1; /* Gradient border */
 }
 
 /* YouTube Embedding */
