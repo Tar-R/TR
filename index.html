@@ -1,158 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Study Tracker</title>
-  <link rel="stylesheet" href="styles.css">
-  <!-- Include Firebase -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-    import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
-    
-    // Firebase Configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyBZIm5-FIF60sUPsCFY4AWw3oiMOxnW3W8",
-      authDomain: "study-tracker-46744.firebaseapp.com",
-      databaseURL: "https://study-tracker-46744-default-rtdb.firebaseio.com",
-      projectId: "study-tracker-46744",
-      storageBucket: "study-tracker-46744.firebasestorage.app",
-      messagingSenderId: "190293942527",
-      appId: "1:190293942527:web:57a6b4cb28b8d1adae2cca"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    // Utility Functions
-    function formatTime(seconds) {
-      const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
-      const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
-      const secs = String(seconds % 60).padStart(2, '0');
-      return `${hrs}:${mins}:${secs}`;
-    }
-
-    // Timer Functionality
-    class Timer {
-      constructor(user) {
-        this.user = user;
-        this.startTime = null;
-        this.intervalId = null;
-        this.totalTime = 0;
-
-        // Get DOM Elements
-        this.startBtn = document.getElementById(`${user}-start-btn`);
-        this.stopBtn = document.getElementById(`${user}-stop-btn`);
-        this.timerDisplay = document.getElementById(`${user}-timer-display`);
-        this.entriesList = document.getElementById(`${user}-entries`);
-        this.totalTimeDisplay = document.getElementById(`${user}-total-time`);
-
-        // Initialize listeners
-        this.initListeners();
-        this.syncEntries();
-      }
-
-      startTimer() {
-        if (this.intervalId) return;
-
-        console.log(`Starting timer for ${this.user}`); // Debug log
-        this.startTime = Date.now();
-        this.intervalId = setInterval(() => {
-          const elapsed = Math.floor((Date.now() - this.startTime) / 1000);
-          this.timerDisplay.textContent = formatTime(elapsed);
-        }, 1000);
-      }
-
-      stopTimer() {
-        if (!this.intervalId) return;
-
-        console.log(`Stopping timer for ${this.user}`); // Debug log
-        clearInterval(this.intervalId);
-        this.intervalId = null;
-
-        const elapsed = Math.floor((Date.now() - this.startTime) / 1000);
-        const minutes = Math.floor(elapsed / 60);
-
-        this.totalTime += minutes;
-        this.timerDisplay.textContent = '00:00:00';
-        this.saveEntry(minutes);
-      }
-
-      saveEntry(minutes) {
-        const userRef = ref(db, `timers/${this.user}`);
-        const newEntryRef = push(userRef);
-        newEntryRef.set({ minutes, timestamp: Date.now() });
-      }
-
-      syncEntries() {
-        const userRef = ref(db, `timers/${this.user}`);
-        onChildAdded(userRef, (snapshot) => {
-          const { minutes } = snapshot.val();
-          const entry = document.createElement('li');
-          entry.textContent = `${minutes} minutes`;
-          this.entriesList.appendChild(entry);
-
-          // Update total time displayed
-          this.totalTime += minutes;
-          this.totalTimeDisplay.textContent = this.totalTime;
-        });
-      }
-
-      initListeners() {
-        // Ensure buttons are working
-        this.startBtn.addEventListener('click', () => {
-          console.log(`${this.user}: Start button clicked`); // Debug log
-          this.startTimer();
-        });
-        this.stopBtn.addEventListener('click', () => {
-          console.log(`${this.user}: Stop button clicked`); // Debug log
-          this.stopTimer();
-        });
-      }
-    }
-
-    // Initialize Timers for Hima and Tarush
-    new Timer('hima');
-    new Timer('tarush');
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Timer</title>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
-  <header>
-    <h1>Study Tracker</h1>
-    <p>Track productive study sessions together in real time.</p>
-  </header>
-  <main>
-    <div class="timer-container">
-      <!-- Hima's Timer -->
-      <section id="hima-timer" class="timer pink">
-        <h2>Hima's Timer</h2>
-        <p id="hima-timer-display">00:00:00</p>
-        <button id="hima-start-btn" class="start-btn">Start</button>
-        <button id="hima-stop-btn" class="stop-btn">Stop</button>
-        <div class="entries">
-          <h3>Today's Sessions</h3>
-          <ul id="hima-entries"></ul>
-        </div>
-        <p class="productive-time">Productive Time Today: <span id="hima-total-time">0</span> minutes</p>
-      </section>
-
-      <!-- Tarush's Timer -->
-      <section id="tarush-timer" class="timer blue">
-        <h2>Tarush's Timer</h2>
-        <p id="tarush-timer-display">00:00:00</p>
-        <button id="tarush-start-btn" class="start-btn">Start</button>
-        <button id="tarush-stop-btn" class="stop-btn">Stop</button>
-        <div class="entries">
-          <h3>Today's Sessions</h3>
-          <ul id="tarush-entries"></ul>
-        </div>
-        <p class="productive-time">Productive Time Today: <span id="tarush-total-time">0</span> minutes</p>
-      </section>
+    <h1>Study Timer</h1>
+    <div>
+        <h2>Hima</h2>
+        <button id="hima-start-btn">Start</button>
+        <button id="hima-stop-btn">Stop</button>
+        <div id="hima-timer-display">00:00:00</div>
+        <ul id="hima-entries"></ul>
+        <div id="hima-total-time">Total Time: 0 minutes</div>
     </div>
-  </main>
-  <footer>
-    <p>❤️ </p>
-  </footer>
+    <div>
+        <h2>Tarush</h2>
+        <button id="tarush-start-btn">Start</button>
+        <button id="tarush-stop-btn">Stop</button>
+        <div id="tarush-timer-display">00:00:00</div>
+        <ul id="tarush-entries"></ul>
+        <div id="tarush-total-time">Total Time: 0 minutes</div>
+    </div>
 </body>
 </html>
