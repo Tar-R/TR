@@ -20,7 +20,7 @@ header {
 h1 {
   margin: 0;
   font-size: 3em;
-  background: linear-gradient(to right, #3498db, #ff7e5f); /* Opposite gradient to background */
+  background: linear-gradient(to right, #ffccff, #00ffff); /* Opposite gradient to background */
   -webkit-background-clip: text;
   color: transparent; /* To apply the gradient to the text */
   font-weight: bold;
