@@ -9,12 +9,19 @@
 <body>
     <header>
         <h1>Procratination Nation</h1>
+        <p></p>
     </header>
     <main>
+
+
+         </div>
+
+        <!-- YouTube Video Embed -->
         <div id="video-container">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/pQdTu0IeVho" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
 
+        
         <div class="timer-container">
             <!-- Hima's Timer -->
             <section id="hima-timer" class="timer pink">
@@ -27,6 +34,7 @@
                     <ul id="hima-entries"></ul>
                 </div>
                 <p class="productive-time">Productive Time Today: <span id="hima-total-time">0</span> minutes</p>
+                <!-- Clear Entries Button -->
                 <button id="hima-clear-btn">Clear Entries</button>
             </section>
 
@@ -41,15 +49,150 @@
                     <ul id="tarush-entries"></ul>
                 </div>
                 <p class="productive-time">Productive Time Today: <span id="tarush-total-time">0</span> minutes</p>
+                <!-- Clear Entries Button -->
                 <button id="tarush-clear-btn">Clear Entries</button>
             </section>
-        </div>
+       
     </main>
     <footer>
         <p>❤️❤️</p>
     </footer>
+    <!-- Import Firebase Scripts via Module -->
     <script type="module">
-        // Firebase and Timer functionality (unchanged)
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+        import { getDatabase, ref, push, set, onChildAdded, remove } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBZIm5-FIF60sUPsCFY4AWw3oiMOxnW3W8",
+            authDomain: "study-tracker-46744.firebaseapp.com",
+            databaseURL: "https://study-tracker-46744-default-rtdb.firebaseio.com",
+            projectId: "study-tracker-46744",
+            storageBucket: "study-tracker-46744.firebasestorage.app",
+            messagingSenderId: "190293942527",
+            appId: "1:190293942527:web:57a6b4cb28b8d1adae2cca"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Utility function to format time
+        function formatTime(seconds) {
+            const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
+            const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+            const secs = String(seconds % 60).padStart(2, '0');
+            return ${hrs}:${mins}:${secs};
+        }
+
+        // Timer functionality
+        class Timer {
+            constructor(user) {
+                this.user = user;
+                this.startTime = null;
+                this.intervalId = null;
+                this.totalTime = 0;
+
+                // Get DOM elements
+                this.startBtn = document.getElementById(${user}-start-btn);
+                this.stopBtn = document.getElementById(${user}-stop-btn);
+                this.timerDisplay = document.getElementById(${user}-timer-display);
+                this.entriesList = document.getElementById(${user}-entries);
+                this.totalTimeDisplay = document.getElementById(${user}-total-time);
+
+                // Initialize listeners
+                this.initListeners();
+                this.syncEntries();
+            }
+
+            startTimer() {
+                if (this.intervalId) return;
+
+                console.log(Starting timer for ${this.user}); // Debug log
+                this.startTime = Date.now();
+                this.intervalId = setInterval(() => {
+                    const elapsed = Math.floor((Date.now() - this.startTime) / 1000);
+                    this.timerDisplay.textContent = formatTime(elapsed);
+                }, 1000);
+            }
+
+            stopTimer() {
+                if (!this.intervalId) return;
+
+                console.log(Stopping timer for ${this.user}); // Debug log
+                clearInterval(this.intervalId);
+                this.intervalId = null;
+
+                const elapsed = Math.floor((Date.now() - this.startTime) / 1000);
+                const minutes = Math.floor(elapsed / 60);
+
+                this.totalTime += minutes;
+                this.timerDisplay.textContent = '00:00:00';
+                this.saveEntry(minutes);
+            }
+
+            saveEntry(minutes) {
+                const userRef = ref(db, timers/${this.user});
+                const newEntryRef = push(userRef);
+
+                // Using set correctly with the new entry reference
+                set(newEntryRef, {
+                    minutes: minutes,
+                    timestamp: Date.now(),
+                }).then(() => {
+                    console.log('Entry saved to Firebase.');
+                }).catch((error) => {
+                    console.error('Error saving entry:', error);
+                });
+            }
+
+            syncEntries() {
+                const userRef = ref(db, timers/${this.user});
+                onChildAdded(userRef, (snapshot) => {
+                    const { minutes } = snapshot.val();
+                    const entry = document.createElement('li');
+                    entry.textContent = ${minutes} minutes;
+                    this.entriesList.appendChild(entry);
+
+                    // Update total time displayed
+                    this.totalTime += minutes;
+                    this.totalTimeDisplay.textContent = this.totalTime;
+                });
+            }
+
+            initListeners() {
+                // Ensure buttons are working
+                this.startBtn.addEventListener('click', () => {
+                    console.log(${this.user}: Start button clicked); // Debug log
+                    this.startTimer();
+                });
+                this.stopBtn.addEventListener('click', () => {
+                    console.log(${this.user}: Stop button clicked); // Debug log
+                    this.stopTimer();
+                });
+
+                // Add event listener for clear button
+                const clearBtn = document.getElementById(${this.user}-clear-btn);
+                clearBtn.addEventListener('click', () => {
+                    this.clearEntries();
+                });
+            }
+
+            // Clear the user's entries from Firebase
+            clearEntries() {
+                const userRef = ref(db, timers/${this.user});
+                remove(userRef).then(() => {
+                    console.log(${this.user}'s entries cleared.);
+                    this.entriesList.innerHTML = ''; // Clear entries from the UI
+                    this.totalTime = 0;
+                    this.totalTimeDisplay.textContent = this.totalTime;
+                }).catch((error) => {
+                    console.error('Error clearing entries:', error);
+                });
+            }
+        }
+
+        // Initialize Timers for Hima and Tarush
+        new Timer('hima');
+        new Timer('tarush');
     </script>
 </body>
 </html>
