@@ -1,6 +1,6 @@
-// Ensure Firebase imports are correct
+// Firebase Imports (Ensure the path is correct)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-import { getDatabase, ref, push, set, onChildAdded, get, child } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+import { getDatabase, ref, push, set, onChildAdded, get } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -73,15 +73,19 @@ class Timer {
 
   saveEntry(minutes) {
     const userRef = ref(db, `timers/${this.user}`);
+    
+    // Create a new child reference using push()
     const newEntryRef = push(userRef);
 
-    // Using set correctly with the new entry reference
+    // Using set correctly to store data under the new reference
     set(newEntryRef, {
       minutes: minutes,
       timestamp: Date.now(),
-    }).then(() => {
+    })
+    .then(() => {
       console.log('Entry saved to Firebase.');
-    }).catch((error) => {
+    })
+    .catch((error) => {
       console.error('Error saving entry:', error);
     });
   }
