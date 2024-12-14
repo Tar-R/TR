@@ -1,12 +1,12 @@
 // Firebase Configuration
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBZIm5-FIF60sUPsCFY4AWw3oiMOxnW3W8",
+  authDomain: "study-tracker-46744.firebaseapp.com",
+  databaseURL: "https://study-tracker-46744-default-rtdb.firebaseio.com",
+  projectId: "study-tracker-46744",
+  storageBucket: "study-tracker-46744.firebasestorage.app",
+  messagingSenderId: "190293942527",
+  appId: "1:190293942527:web:57a6b4cb28b8d1adae2cca"
 };
 
 // Initialize Firebase
