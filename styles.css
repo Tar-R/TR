@@ -3,7 +3,7 @@ body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(to right, #ff7e5f, #3498db); /* Pink to Blue gradient */
+  background: linear-gradient(to right, #f8bbd0, #bbdefb); /* Gradient from baby pink to baby blue */
   color: #333;
   text-align: center;
 }
@@ -40,12 +40,11 @@ h1 {
   padding: 20px;
   width: 45%;
   max-width: 400px;
-  border-radius: 12px;
+  border-radius: 25px; /* Increased border-radius for cuter corners */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   transition: transform 0.3s ease;
-  border: 2px solid transparent; /* Transparent border */
-  border-image: linear-gradient(to right, #ff7e5f, #3498db) 1; /* Gradient border */
+  /* Removed the border */
 }
 
 .timer:hover {
@@ -69,19 +68,20 @@ h2 {
 
 /* Button Styling */
 button {
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 12px 25px; /* Increased padding */
+  font-size: 18px; /* Increased font size */
   cursor: pointer;
   margin-top: 15px;
   border: none;
-  border-radius: 6px;
+  border-radius: 12px; /* Smoother corners */
   background-color: #3498db;
   color: white;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button:hover {
   background-color: #2980b9;
+  transform: scale(1.05); /* Subtle button hover scaling */
 }
 
 button.stop-btn {
@@ -90,6 +90,14 @@ button.stop-btn {
 
 button.stop-btn:hover {
   background-color: #c0392b;
+}
+
+button.clear-btn {
+  background-color: #f39c12; /* New color for clear button */
+}
+
+button.clear-btn:hover {
+  background-color: #e67e22;
 }
 
 /* Entries Section */
