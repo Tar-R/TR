@@ -46,18 +46,18 @@ class Timer {
   }
 
   startTimer() {
-    if (this.intervalId) return;
+    if (this.intervalId) return; // If timer is already running, return
 
     console.log(`Starting timer for ${this.user}`); // Debug log
     this.startTime = Date.now();
     this.intervalId = setInterval(() => {
       const elapsed = Math.floor((Date.now() - this.startTime) / 1000);
       this.timerDisplay.textContent = formatTime(elapsed);
-    }, 1000);
+    }, 1000); // Updates every second for real-time effect
   }
 
   stopTimer() {
-    if (!this.intervalId) return;
+    if (!this.intervalId) return; // If timer isn't running, return
 
     console.log(`Stopping timer for ${this.user}`); // Debug log
     clearInterval(this.intervalId);
@@ -67,7 +67,7 @@ class Timer {
     const minutes = Math.floor(elapsed / 60);
 
     this.totalTime += minutes;
-    this.timerDisplay.textContent = '00:00:00';
+    this.timerDisplay.textContent = '00:00:00'; // Reset display after stopping
     this.saveEntry(minutes);
   }
 
