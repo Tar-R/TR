@@ -10,7 +10,7 @@ body {
 
 /* Header Styling */
 header {
-  background: linear-gradient(to right, #ff7e5f, #3498db); /* Pink to Blue gradient */
+  background: linear-gradient(to right, #f8bbd0, #bbdefb); /* Pink to Blue gradient */
   color: white;
   padding: 20px;
   border-bottom: 5px solid transparent; /* Transparent border initially */
@@ -20,7 +20,7 @@ header {
 h1 {
   margin: 0;
   font-size: 3em;
-  background: linear-gradient(to right, #ffccff, #00ffff); /* Opposite gradient to background */
+  background: linear-gradient(to right, #bbdefb, #f8bbd0); /* Opposite gradient to background */
   -webkit-background-clip: text;
   color: transparent; /* To apply the gradient to the text */
   font-weight: bold;
@@ -118,13 +118,13 @@ li {
 
 /* Footer Styling */
 footer {
-  background: linear-gradient(to right, #ff7e5f, #3498db); /* Same pink to blue gradient */
+  background: linear-gradient(to right, #f8bbd0, #bbdefb); /* Same pink to blue gradient */
   color: white;
   padding: 20px;
   margin-top: 30px;
   font-size: 1.2em;
   border-top: 2px solid transparent; /* Transparent border */
-  border-image: linear-gradient(to right, #ff7e5f, #3498db) 1; /* Gradient border */
+  border-image: linear-gradient(to right, #f8bbd0, #bbdefb) 1; /* Gradient border */
 }
 
 /* YouTube Embedding */
