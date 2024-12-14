@@ -3,24 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tarush Raiwani - Web App</title>
+  <title>Study Tracker</title>
   <link rel="stylesheet" href="styles.css">
+  <!-- Include Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js"></script>
 </head>
 <body>
   <header>
-    <h1>Welcome to Tarush's Web App</h1>
+    <h1>Study Tracker</h1>
+    <p>Track productive study sessions together in real time.</p>
   </header>
   <main>
-    <section id="app">
-      <h2>Simple Calculator</h2>
-      <input type="number" id="num1" placeholder="Enter first number">
-      <input type="number" id="num2" placeholder="Enter second number">
-      <button onclick="calculate()">Add</button>
-      <p id="result">Result: </p>
-    </section>
+    <div class="timer-container">
+      <!-- Hima's Timer -->
+      <section id="hima-timer" class="timer pink">
+        <h2>Hima's Timer</h2>
+        <p id="hima-timer-display">00:00:00</p>
+        <button id="hima-start-btn" class="start-btn">Start</button>
+        <button id="hima-stop-btn" class="stop-btn">Stop</button>
+        <div class="entries">
+          <h3>Today's Sessions</h3>
+          <ul id="hima-entries"></ul>
+        </div>
+        <p class="productive-time">Productive Time Today: <span id="hima-total-time">0</span> minutes</p>
+      </section>
+
+      <!-- Tarush's Timer -->
+      <section id="tarush-timer" class="timer blue">
+        <h2>Tarush's Timer</h2>
+        <p id="tarush-timer-display">00:00:00</p>
+        <button id="tarush-start-btn" class="start-btn">Start</button>
+        <button id="tarush-stop-btn" class="stop-btn">Stop</button>
+        <div class="entries">
+          <h3>Today's Sessions</h3>
+          <ul id="tarush-entries"></ul>
+        </div>
+        <p class="productive-time">Productive Time Today: <span id="tarush-total-time">0</span> minutes</p>
+      </section>
+    </div>
   </main>
   <footer>
-    <p>© 2024 Tarush Raiwani</p>
+    <p>Made with ❤️ by Tarush & Hima</p>
   </footer>
   <script src="script.js"></script>
 </body>
