@@ -60,27 +60,20 @@ class Timer {
 
     this.totalTime += minutes;
     this.timerDisplay.textContent = '00:00:00';
-    this.saveEntry(minutes, Date.now());
+    this.saveEntry(minutes);
   }
 
-  saveEntry(minutes, timestamp) {
+  saveEntry(minutes) {
     const newEntryRef = db.ref(`timers/${this.user}`).push();
-    newEntryRef.set({ minutes, timestamp })
-      .then(() => {
-        console.log('Entry saved successfully!');
-      })
-      .catch((error) => {
-        console.error('Error saving entry:', error);
-      });
+    newEntryRef.set({ minutes, timestamp: Date.now() });
   }
 
   syncEntries() {
     const ref = db.ref(`timers/${this.user}`);
     ref.on('child_added', (snapshot) => {
-      const { minutes, timestamp } = snapshot.val();
-      const formattedTimestamp = new Date(timestamp).toLocaleString();
+      const { minutes } = snapshot.val();
       const entry = document.createElement('li');
-      entry.textContent = `${minutes} minutes (${formattedTimestamp})`;
+      entry.textContent = `${minutes} minutes`;
       this.entriesList.appendChild(entry);
 
       this.totalTimeDisplay.textContent = `Total Time: ${this.totalTime + minutes} minutes`;
@@ -89,9 +82,11 @@ class Timer {
 
   initListeners() {
     this.startBtn.addEventListener('click', () => {
+      console.log(`${this.user}: Start button clicked`);
       this.startTimer();
     });
     this.stopBtn.addEventListener('click', () => {
+      console.log(`${this.user}: Stop button clicked`);
       this.stopTimer();
     });
   }
