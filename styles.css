@@ -40,7 +40,7 @@ h1 {
   padding: 20px;
   width: 45%;
   max-width: 400px;
-  border-radius: 200px; /* Increased border-radius for cuter corners */
+  border-radius: 50px; /* Increased border-radius for cuter corners */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   transition: transform 0.3s ease;
