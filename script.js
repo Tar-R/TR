@@ -1,7 +1,3 @@
-// Firebase Imports (Ensure the path is correct)
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-import { getDatabase, ref, push, set, onChildAdded, get } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
-
 // Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBZIm5-FIF60sUPsCFY4AWw3oiMOxnW3W8",
@@ -14,10 +10,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.database(app);
 
-// Utility function to format time
+// Utility Functions
 function formatTime(seconds) {
   const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
   const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
@@ -25,7 +21,7 @@ function formatTime(seconds) {
   return `${hrs}:${mins}:${secs}`;
 }
 
-// Timer functionality
+// Timer Functionality
 class Timer {
   constructor(user) {
     this.user = user;
@@ -33,14 +29,12 @@ class Timer {
     this.intervalId = null;
     this.totalTime = 0;
 
-    // Get DOM elements
     this.startBtn = document.getElementById(`${user}-start-btn`);
     this.stopBtn = document.getElementById(`${user}-stop-btn`);
     this.timerDisplay = document.getElementById(`${user}-timer-display`);
     this.entriesList = document.getElementById(`${user}-entries`);
     this.totalTimeDisplay = document.getElementById(`${user}-total-time`);
 
-    // Initialize listeners
     this.initListeners();
     this.syncEntries();
   }
@@ -48,7 +42,6 @@ class Timer {
   startTimer() {
     if (this.intervalId) return;
 
-    console.log(`Starting timer for ${this.user}`); // Debug log
     this.startTime = Date.now();
     this.intervalId = setInterval(() => {
       const elapsed = Math.floor((Date.now() - this.startTime) / 1000);
@@ -59,7 +52,6 @@ class Timer {
   stopTimer() {
     if (!this.intervalId) return;
 
-    console.log(`Stopping timer for ${this.user}`); // Debug log
     clearInterval(this.intervalId);
     this.intervalId = null;
 
@@ -72,69 +64,34 @@ class Timer {
   }
 
   saveEntry(minutes) {
-    const userRef = ref(db, `timers/${this.user}`);
-    
-    // Create a new child reference using push()
-    const newEntryRef = push(userRef);
-
-    // Using set correctly to store data under the new reference
-    set(newEntryRef, {
-      minutes: minutes,
-      timestamp: Date.now(),
-    })
-    .then(() => {
-      console.log('Entry saved to Firebase.');
-    })
-    .catch((error) => {
-      console.error('Error saving entry:', error);
-    });
+    const newEntryRef = db.ref(`timers/${this.user}`).push();
+    newEntryRef.set({ minutes, timestamp: Date.now() });
   }
 
   syncEntries() {
-    const userRef = ref(db, `timers/${this.user}`);
-
-    // Fetch data on page load
-    get(userRef).then(snapshot => {
-      if (snapshot.exists()) {
-        snapshot.forEach(childSnapshot => {
-          const { minutes } = childSnapshot.val();
-          this.displayEntry(minutes);
-        });
-      }
-    }).catch((error) => {
-      console.error('Error fetching entries:', error);
-    });
-
-    // Listen for new entries in real-time
-    onChildAdded(userRef, (snapshot) => {
+    const ref = db.ref(`timers/${this.user}`);
+    ref.on('child_added', (snapshot) => {
       const { minutes } = snapshot.val();
-      this.displayEntry(minutes);
+      const entry = document.createElement('li');
+      entry.textContent = `${minutes} minutes`;
+      this.entriesList.appendChild(entry);
+
+      this.totalTimeDisplay.textContent = `Total Time: ${this.totalTime + minutes} minutes`;
     });
-  }
-
-  displayEntry(minutes) {
-    const entry = document.createElement('li');
-    entry.textContent = `${minutes} minutes`;
-    this.entriesList.appendChild(entry);
-
-    // Update total time displayed
-    this.totalTime += minutes;
-    this.totalTimeDisplay.textContent = this.totalTime;
   }
 
   initListeners() {
-    // Ensure buttons are working
     this.startBtn.addEventListener('click', () => {
-      console.log(`${this.user}: Start button clicked`); // Debug log
+      console.log(`${this.user}: Start button clicked`);
       this.startTimer();
     });
     this.stopBtn.addEventListener('click', () => {
-      console.log(`${this.user}: Stop button clicked`); // Debug log
+      console.log(`${this.user}: Stop button clicked`);
       this.stopTimer();
     });
   }
 }
 
-// Initialize Timers for Hima and Tarush
+// Initialize Timers
 new Timer('hima');
 new Timer('tarush');
