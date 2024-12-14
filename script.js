@@ -1,6 +1,6 @@
 // Ensure Firebase imports are correct
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-import { getDatabase, ref, push, set, onChildAdded } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+import { getDatabase, ref, push, set, onChildAdded, remove } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -39,6 +39,7 @@ class Timer {
     this.timerDisplay = document.getElementById(`${user}-timer-display`);
     this.entriesList = document.getElementById(`${user}-entries`);
     this.totalTimeDisplay = document.getElementById(`${user}-total-time`);
+    this.clearBtn = document.getElementById(`${user}-clear-btn`); // New clear button
 
     // Initialize listeners
     this.initListeners();
@@ -46,18 +47,18 @@ class Timer {
   }
 
   startTimer() {
-    if (this.intervalId) return; // If timer is already running, return
+    if (this.intervalId) return;
 
     console.log(`Starting timer for ${this.user}`); // Debug log
     this.startTime = Date.now();
     this.intervalId = setInterval(() => {
       const elapsed = Math.floor((Date.now() - this.startTime) / 1000);
       this.timerDisplay.textContent = formatTime(elapsed);
-    }, 1000); // Updates every second for real-time effect
+    }, 1000);
   }
 
   stopTimer() {
-    if (!this.intervalId) return; // If timer isn't running, return
+    if (!this.intervalId) return;
 
     console.log(`Stopping timer for ${this.user}`); // Debug log
     clearInterval(this.intervalId);
@@ -67,7 +68,7 @@ class Timer {
     const minutes = Math.floor(elapsed / 60);
 
     this.totalTime += minutes;
-    this.timerDisplay.textContent = '00:00:00'; // Reset display after stopping
+    this.timerDisplay.textContent = '00:00:00';
     this.saveEntry(minutes);
   }
 
@@ -100,6 +101,22 @@ class Timer {
     });
   }
 
+  clearEntries() {
+    const userRef = ref(db, `timers/${this.user}`);
+    // Remove all entries from Firebase for this user
+    remove(userRef)
+      .then(() => {
+        console.log("Entries cleared from Firebase.");
+        // Also clear the entries list in the UI
+        this.entriesList.innerHTML = '';
+        this.totalTime = 0;
+        this.totalTimeDisplay.textContent = this.totalTime;
+      })
+      .catch((error) => {
+        console.error("Error clearing entries:", error);
+      });
+  }
+
   initListeners() {
     // Ensure buttons are working
     this.startBtn.addEventListener('click', () => {
@@ -109,6 +126,12 @@ class Timer {
     this.stopBtn.addEventListener('click', () => {
       console.log(`${this.user}: Stop button clicked`); // Debug log
       this.stopTimer();
+    });
+
+    // Add listener for clearing entries
+    this.clearBtn.addEventListener('click', () => {
+      console.log(`${this.user}: Clear button clicked`); // Debug log
+      this.clearEntries();
     });
   }
 }
