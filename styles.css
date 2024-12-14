@@ -1,90 +1,172 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #FF6F61, #6A82FB);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+  flex-direction: column;
+  background-size: cover;
+  background-attachment: fixed;
+  padding: 1rem;
 }
 
-header {
-    background-color: #ff77cc;
-    color: white;
-    padding: 20px;
+h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-main {
-    padding: 20px;
-}
-
+/* Timer Container */
 .timer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-    gap: 10px; /* Add a small gap between timers */
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
-.timer {
-    background-color: white;
-    border-radius: 8px;
-    padding: 20px;
-    width: 45%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.timer-box {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 0 auto;
+  margin-bottom: 2rem;
 }
 
-.pink {
-    background-color: #ff77cc;
+.timer-box:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.2);
 }
 
-.blue {
-    background-color: #77ccff;
+.timer-box h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
 }
 
-h1, h2 {
-    font-family: 'Arial', sans-serif;
-    color: #333;
+.timer-box p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
 }
 
-h2 {
-    margin-top: 0;
+.timer-box .time {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
 }
 
 button {
-    padding: 10px;
-    margin: 5px;
-    background-color: #333;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+  background-color: #FF6F61;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  padding: 0.8rem 2rem;
+  margin: 0.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 button:hover {
-    background-color: #555;
+  background-color: #6A82FB;
+  transform: scale(1.05);
 }
 
-.entries {
-    margin-top: 10px;
+button:active {
+  transform: scale(1);
 }
 
-.entries ul {
-    list-style-type: none;
-    padding: 0;
+button:focus {
+  outline: none;
 }
 
-.entries li {
-    padding: 5px;
-    background-color: #f4f4f4;
-    margin-bottom: 5px;
-    border-radius: 5px;
+.clear-entries {
+  background-color: #6A82FB;
+  font-size: 1rem;
 }
 
-footer {
-    background-color: #333;
-    color: white;
-    padding: 10px;
-    position: fixed;
+.clear-entries:hover {
+  background-color: #FF6F61;
+}
+
+/* Productive Time Stats */
+.productive-time {
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Video Embedding */
+.video-container {
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 800px;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+iframe {
+  width: 100%;
+  height: 450px;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design (Mobile First) */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .timer-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .timer-box {
+    width: 90%;
+    max-width: 500px;
+    margin-bottom: 1rem;
+  }
+
+  iframe {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .timer-box {
     width: 100%;
-    bottom: 0;
+    max-width: none;
+  }
+
+  iframe {
+    height: 250px;
+  }
 }
