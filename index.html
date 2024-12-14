@@ -9,19 +9,9 @@
 <body>
     <header>
         <h1>Procratination Nation</h1>
-        <p></p>
+        <p>🐶</p>
     </header>
     <main>
-
-
-         </div>
-
-        <!-- YouTube Video Embed -->
-        <div id="video-container">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/pQdTu0IeVho" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-
-        
         <div class="timer-container">
             <!-- Hima's Timer -->
             <section id="hima-timer" class="timer pink">
@@ -52,7 +42,12 @@
                 <!-- Clear Entries Button -->
                 <button id="tarush-clear-btn">Clear Entries</button>
             </section>
-       
+        </div>
+
+        <!-- YouTube Video Embed -->
+        <div id="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/pQdTu0IeVho" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
     </main>
     <footer>
         <p>❤️❤️</p>
@@ -80,7 +75,7 @@
             const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
             const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
             const secs = String(seconds % 60).padStart(2, '0');
-            return ${hrs}:${mins}:${secs};
+            return `${hrs}:${mins}:${secs}`;
         }
 
         // Timer functionality
@@ -92,11 +87,11 @@
                 this.totalTime = 0;
 
                 // Get DOM elements
-                this.startBtn = document.getElementById(${user}-start-btn);
-                this.stopBtn = document.getElementById(${user}-stop-btn);
-                this.timerDisplay = document.getElementById(${user}-timer-display);
-                this.entriesList = document.getElementById(${user}-entries);
-                this.totalTimeDisplay = document.getElementById(${user}-total-time);
+                this.startBtn = document.getElementById(`${user}-start-btn`);
+                this.stopBtn = document.getElementById(`${user}-stop-btn`);
+                this.timerDisplay = document.getElementById(`${user}-timer-display`);
+                this.entriesList = document.getElementById(`${user}-entries`);
+                this.totalTimeDisplay = document.getElementById(`${user}-total-time`);
 
                 // Initialize listeners
                 this.initListeners();
@@ -106,7 +101,7 @@
             startTimer() {
                 if (this.intervalId) return;
 
-                console.log(Starting timer for ${this.user}); // Debug log
+                console.log(`Starting timer for ${this.user}`); // Debug log
                 this.startTime = Date.now();
                 this.intervalId = setInterval(() => {
                     const elapsed = Math.floor((Date.now() - this.startTime) / 1000);
@@ -117,7 +112,7 @@
             stopTimer() {
                 if (!this.intervalId) return;
 
-                console.log(Stopping timer for ${this.user}); // Debug log
+                console.log(`Stopping timer for ${this.user}`); // Debug log
                 clearInterval(this.intervalId);
                 this.intervalId = null;
 
@@ -130,7 +125,7 @@
             }
 
             saveEntry(minutes) {
-                const userRef = ref(db, timers/${this.user});
+                const userRef = ref(db, `timers/${this.user}`);
                 const newEntryRef = push(userRef);
 
                 // Using set correctly with the new entry reference
@@ -145,11 +140,11 @@
             }
 
             syncEntries() {
-                const userRef = ref(db, timers/${this.user});
+                const userRef = ref(db, `timers/${this.user}`);
                 onChildAdded(userRef, (snapshot) => {
                     const { minutes } = snapshot.val();
                     const entry = document.createElement('li');
-                    entry.textContent = ${minutes} minutes;
+                    entry.textContent = `${minutes} minutes`;
                     this.entriesList.appendChild(entry);
 
                     // Update total time displayed
@@ -161,16 +156,16 @@
             initListeners() {
                 // Ensure buttons are working
                 this.startBtn.addEventListener('click', () => {
-                    console.log(${this.user}: Start button clicked); // Debug log
+                    console.log(`${this.user}: Start button clicked`); // Debug log
                     this.startTimer();
                 });
                 this.stopBtn.addEventListener('click', () => {
-                    console.log(${this.user}: Stop button clicked); // Debug log
+                    console.log(`${this.user}: Stop button clicked`); // Debug log
                     this.stopTimer();
                 });
 
                 // Add event listener for clear button
-                const clearBtn = document.getElementById(${this.user}-clear-btn);
+                const clearBtn = document.getElementById(`${this.user}-clear-btn`);
                 clearBtn.addEventListener('click', () => {
                     this.clearEntries();
                 });
@@ -178,9 +173,9 @@
 
             // Clear the user's entries from Firebase
             clearEntries() {
-                const userRef = ref(db, timers/${this.user});
+                const userRef = ref(db, `timers/${this.user}`);
                 remove(userRef).then(() => {
-                    console.log(${this.user}'s entries cleared.);
+                    console.log(`${this.user}'s entries cleared.`);
                     this.entriesList.innerHTML = ''; // Clear entries from the UI
                     this.totalTime = 0;
                     this.totalTimeDisplay.textContent = this.totalTime;
