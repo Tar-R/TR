@@ -9,9 +9,13 @@ const firebaseConfig = {
   appId: "1:190293942527:web:57a6b4cb28b8d1adae2cca"
 };
 
+// Initialize Firebase (Modular Version)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+
 // Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const db = firebase.database(app);
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
 // Utility Functions
 function formatTime(seconds) {
@@ -29,12 +33,14 @@ class Timer {
     this.intervalId = null;
     this.totalTime = 0;
 
+    // Get DOM Elements
     this.startBtn = document.getElementById(`${user}-start-btn`);
     this.stopBtn = document.getElementById(`${user}-stop-btn`);
     this.timerDisplay = document.getElementById(`${user}-timer-display`);
     this.entriesList = document.getElementById(`${user}-entries`);
     this.totalTimeDisplay = document.getElementById(`${user}-total-time`);
 
+    // Initialize listeners
     this.initListeners();
     this.syncEntries();
   }
@@ -42,6 +48,7 @@ class Timer {
   startTimer() {
     if (this.intervalId) return;
 
+    console.log(`Starting timer for ${this.user}`); // Debug log
     this.startTime = Date.now();
     this.intervalId = setInterval(() => {
       const elapsed = Math.floor((Date.now() - this.startTime) / 1000);
@@ -52,6 +59,7 @@ class Timer {
   stopTimer() {
     if (!this.intervalId) return;
 
+    console.log(`Stopping timer for ${this.user}`); // Debug log
     clearInterval(this.intervalId);
     this.intervalId = null;
 
@@ -64,30 +72,38 @@ class Timer {
   }
 
   saveEntry(minutes) {
-    const ref = db.ref(`timers/${this.user}`).push();
-    ref.set({ minutes, timestamp: Date.now() });
+    const userRef = ref(db, `timers/${this.user}`);
+    const newEntryRef = push(userRef);
+    newEntryRef.set({ minutes, timestamp: Date.now() });
   }
 
   syncEntries() {
-    const ref = db.ref(`timers/${this.user}`);
-    ref.on('child_added', (snapshot) => {
+    const userRef = ref(db, `timers/${this.user}`);
+    onChildAdded(userRef, (snapshot) => {
       const { minutes } = snapshot.val();
       const entry = document.createElement('li');
       entry.textContent = `${minutes} minutes`;
       this.entriesList.appendChild(entry);
 
-      // Recalculate total time
+      // Update total time displayed
       this.totalTime += minutes;
       this.totalTimeDisplay.textContent = this.totalTime;
     });
   }
 
   initListeners() {
-    this.startBtn.addEventListener('click', () => this.startTimer());
-    this.stopBtn.addEventListener('click', () => this.stopTimer());
+    // Ensure buttons are working
+    this.startBtn.addEventListener('click', () => {
+      console.log(`${this.user}: Start button clicked`); // Debug log
+      this.startTimer();
+    });
+    this.stopBtn.addEventListener('click', () => {
+      console.log(`${this.user}: Stop button clicked`); // Debug log
+      this.stopTimer();
+    });
   }
 }
 
-// Initialize Timers
+// Initialize Timers for Hima and Tarush
 new Timer('hima');
 new Timer('tarush');
