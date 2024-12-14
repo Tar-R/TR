@@ -1,172 +1,167 @@
-/* Global Styles */
-* {
+/* Body Styling */
+body {
+  font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  background: linear-gradient(to right, #ff7e5f, #3498db); /* Pink to Blue gradient */
+  color: #333;
+  text-align: center;
 }
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #FF6F61, #6A82FB);
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  height: 100vh;
-  flex-direction: column;
-  background-size: cover;
-  background-attachment: fixed;
-  padding: 1rem;
+/* Header Styling */
+header {
+  background: linear-gradient(to right, #ff7e5f, #3498db); /* Pink to Blue gradient */
+  color: white;
+  padding: 20px;
+  border-bottom: 5px solid transparent; /* Transparent border */
+  border-image: linear-gradient(to right, #ff7e5f, #3498db) 1; /* Gradient border */
 }
 
 h1 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 2rem;
+  margin: 0;
+  font-size: 3em;
+  background: linear-gradient(to right, #3498db, #ff7e5f); /* Opposite gradient to background */
+  -webkit-background-clip: text;
+  color: transparent; /* To apply the gradient to the text */
   font-weight: bold;
-  color: #fff;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: inline-block; /* Makes the background behave like a box around the text */
+}
+
+h1::before {
+  content: 'Procrastination Nation'; /* Set the text content for the background */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white; /* White background */
+  z-index: -1; /* Position the background behind the text */
+  padding: 2px; /* Padding around the text */
+  border-radius: 4px; /* Optional: makes the background slightly rounded */
 }
 
 /* Timer Container */
 .timer-container {
   display: flex;
-  justify-content: center;
-  width: 100%;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 2rem;
+  justify-content: space-around;
+  margin-top: 20px;
+  flex-wrap: wrap; /* Make the timers responsive */
+  gap: 20px;
 }
 
-.timer-box {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 1.5rem;
-  width: 100%;
-  max-width: 450px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin: 0 auto;
-  margin-bottom: 2rem;
+/* Timer Styling */
+.timer {
+  padding: 20px;
+  width: 45%;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: transform 0.3s ease;
+  border: 0px solid white; /* White border for the timer cards */
 }
 
-.timer-box:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.2);
+.timer:hover {
+  transform: translateY(-10px); /* Hover effect */
 }
 
-.timer-box h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+.pink {
+  background-color: #f8bbd0; /* Light pink */
 }
 
-.timer-box p {
-  font-size: 1rem;
-  margin-bottom: 1rem;
+.blue {
+  background-color: #bbdefb; /* Light blue */
 }
 
-.timer-box .time {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 1.5rem;
+/* Timer Titles */
+h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #3498db;
 }
 
+/* Button Styling */
 button {
-  background-color: #FF6F61;
-  border: none;
-  color: white;
-  font-size: 1rem;
-  padding: 0.8rem 2rem;
-  margin: 0.5rem;
-  border-radius: 50px;
+  padding: 10px 20px;
+  font-size: 16px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  margin-top: 15px;
+  border: none;
+  border-radius: 6px;
+  background-color: #3498db;
+  color: white;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #6A82FB;
-  transform: scale(1.05);
+  background-color: #2980b9;
 }
 
-button:active {
-  transform: scale(1);
+button.stop-btn {
+  background-color: #e74c3c;
 }
 
-button:focus {
-  outline: none;
+button.stop-btn:hover {
+  background-color: #c0392b;
 }
 
-.clear-entries {
-  background-color: #6A82FB;
-  font-size: 1rem;
+/* Entries Section */
+.entries {
+  margin-top: 20px;
 }
 
-.clear-entries:hover {
-  background-color: #FF6F61;
+ul {
+  list-style-type: none;
+  padding: 0;
 }
 
-/* Productive Time Stats */
-.productive-time {
-  font-size: 1.1rem;
-  margin-top: 1rem;
-  font-weight: bold;
-  color: #fff;
+li {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #555;
 }
 
-/* Video Embedding */
-.video-container {
-  margin-top: 2rem;
-  width: 100%;
-  max-width: 800px;
-  border-radius: 15px;
-  overflow: hidden;
+/* Footer Styling */
+footer {
+  background: linear-gradient(to right, #ff7e5f, #3498db); /* Same pink to blue gradient */
+  color: white;
+  padding: 20px;
+  margin-top: 30px;
+  font-size: 1.2em;
+  border-top: 0px; /* White border */
+}
+
+/* YouTube Embedding */
+#video-container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
 }
 
 iframe {
-  width: 100%;
-  height: 450px;
   border: none;
-  border-radius: 15px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  max-width: 80%;
+  height: 400px;
 }
 
-/* Responsive Design (Mobile First) */
-@media (max-width: 768px) {
+/* Responsive Footer for Smaller Screens (Mobile) */
+@media (max-width: 767px) {
+  footer {
+    padding: 15px; /* Slightly smaller padding */
+    font-size: 1em; /* Smaller font size on mobile */
+  }
+  
   h1 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
+    font-size: 2em; /* Smaller title on mobile */
+  }
+
+  .timer {
+    width: 90%; /* Full width for timers on mobile */
   }
 
   .timer-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-  }
-
-  .timer-box {
-    width: 90%;
-    max-width: 500px;
-    margin-bottom: 1rem;
-  }
-
-  iframe {
-    height: 300px;
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-  }
-
-  .timer-box {
-    width: 100%;
-    max-width: none;
-  }
-
-  iframe {
-    height: 250px;
+    justify-content: center; /* Center the timer container */
   }
 }
