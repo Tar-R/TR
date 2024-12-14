@@ -1,40 +1,50 @@
-/* Basic styling for body */
+/* Body Styling */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f9;
+  background: linear-gradient(to right, #ff7e5f, #feb47b); /* Gradient background */
+  color: #333;
   text-align: center;
 }
 
-/* Header styling */
+/* Header Styling */
 header {
   background-color: #2c3e50;
   color: white;
   padding: 20px;
+  border-bottom: 5px solid #3498db;
 }
 
 h1 {
   margin: 0;
+  font-size: 3em;
 }
 
-/* Timer container with flexbox */
+/* Timer Container */
 .timer-container {
   display: flex;
   justify-content: space-around;
   margin-top: 20px;
+  flex-wrap: wrap; /* Make the timers responsive */
+  gap: 20px;
 }
 
-/* Styling for individual timer boxes */
+/* Timer Styling */
 .timer {
   padding: 20px;
   width: 45%;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  background-color: white;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: transform 0.3s ease;
 }
 
-/* Custom background colors for each timer */
+.timer:hover {
+  transform: translateY(-10px); /* Hover effect */
+}
+
 .pink {
   background-color: #f8bbd0;
 }
@@ -43,28 +53,23 @@ h1 {
   background-color: #bbdefb;
 }
 
-/* Timer titles */
+/* Timer Titles */
 h2 {
   font-size: 24px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  color: #3498db;
 }
 
-/* Aligning timer text */
-#hima-timer, #tarush-timer {
-  text-align: center;
-}
-
-/* Button styling */
+/* Button Styling */
 button {
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 15px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   background-color: #3498db;
   color: white;
-  margin-right: 10px;
   transition: background-color 0.3s ease;
 }
 
@@ -80,12 +85,11 @@ button.stop-btn:hover {
   background-color: #c0392b;
 }
 
-/* Entries section */
+/* Entries Section */
 .entries {
   margin-top: 20px;
 }
 
-/* Styling for the list of timer entries */
 ul {
   list-style-type: none;
   padding: 0;
@@ -94,12 +98,29 @@ ul {
 li {
   font-size: 18px;
   margin-bottom: 10px;
+  color: #555;
 }
 
-/* Footer styling */
+/* Footer Styling */
 footer {
   background-color: #2c3e50;
   color: white;
-  padding: 10px;
+  padding: 20px;
   margin-top: 30px;
+  font-size: 1.2em;
+  border-top: 5px solid #3498db;
+}
+
+/* YouTube Embedding */
+#video-container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+iframe {
+  border: none;
+  border-radius: 12px;
+  max-width: 80%;
+  height: 400px;
 }
