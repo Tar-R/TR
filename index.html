@@ -1,36 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study Timer</title>
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js"></script>
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Include Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js"></script>
 </head>
 <body>
-    <h1>Study Timer</h1>
+  <header>
+    <h1>Study Tracker</h1>
+    <p>Track productive study sessions together in real time.</p>
+  </header>
+  <main>
+    <div class="timer-container">
+      <!-- Hima's Timer -->
+      <section id="hima-timer" class="timer pink">
+        <h2>Hima's Timer</h2>
+        <p id="hima-timer-display">00:00:00</p>
+        <button id="hima-start-btn" class="start-btn">Start</button>
+        <button id="hima-stop-btn" class="stop-btn">Stop</button>
+        <div class="entries">
+          <h3>Today's Sessions</h3>
+          <ul id="hima-entries"></ul>
+        </div>
+        <p class="productive-time">Productive Time Today: <span id="hima-total-time">0</span> minutes</p>
+      </section>
 
-    <!-- Hima Timer Section -->
-    <div>
-        <h2>Hima</h2>
-        <button id="hima-start-btn">Start</button>
-        <button id="hima-stop-btn">Stop</button>
-        <div id="hima-timer-display">00:00:00</div>
-        <ul id="hima-entries"></ul>
-        <div id="hima-total-time">Total Time: 0 minutes</div>
+      <!-- Tarush's Timer -->
+      <section id="tarush-timer" class="timer blue">
+        <h2>Tarush's Timer</h2>
+        <p id="tarush-timer-display">00:00:00</p>
+        <button id="tarush-start-btn" class="start-btn">Start</button>
+        <button id="tarush-stop-btn" class="stop-btn">Stop</button>
+        <div class="entries">
+          <h3>Today's Sessions</h3>
+          <ul id="tarush-entries"></ul>
+        </div>
+        <p class="productive-time">Productive Time Today: <span id="tarush-total-time">0</span> minutes</p>
+      </section>
     </div>
-
-    <!-- Tarush Timer Section -->
-    <div>
-        <h2>Tarush</h2>
-        <button id="tarush-start-btn">Start</button>
-        <button id="tarush-stop-btn">Stop</button>
-        <div id="tarush-timer-display">00:00:00</div>
-        <ul id="tarush-entries"></ul>
-        <div id="tarush-total-time">Total Time: 0 minutes</div>
-    </div>
-
+  </main>
+  <footer>
+    <p>Made with ❤️ </p>
+  </footer>
+  <script src="script.js"></script>
 </body>
 </html>
