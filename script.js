@@ -76,6 +76,8 @@ class Timer {
       entry.textContent = `${minutes} minutes`;
       this.entriesList.appendChild(entry);
 
+      // Recalculate total time
+      this.totalTime += minutes;
       this.totalTimeDisplay.textContent = this.totalTime;
     });
   }
