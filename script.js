@@ -1,6 +1,6 @@
 // Ensure Firebase imports are correct
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-import { getDatabase, ref, push, set, onChildAdded } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+import { getDatabase, ref, push, set, onChildAdded, get, child } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -88,16 +88,34 @@ class Timer {
 
   syncEntries() {
     const userRef = ref(db, `timers/${this.user}`);
+
+    // Fetch data on page load
+    get(userRef).then(snapshot => {
+      if (snapshot.exists()) {
+        snapshot.forEach(childSnapshot => {
+          const { minutes } = childSnapshot.val();
+          this.displayEntry(minutes);
+        });
+      }
+    }).catch((error) => {
+      console.error('Error fetching entries:', error);
+    });
+
+    // Listen for new entries in real-time
     onChildAdded(userRef, (snapshot) => {
       const { minutes } = snapshot.val();
-      const entry = document.createElement('li');
-      entry.textContent = `${minutes} minutes`;
-      this.entriesList.appendChild(entry);
-
-      // Update total time displayed
-      this.totalTime += minutes;
-      this.totalTimeDisplay.textContent = this.totalTime;
+      this.displayEntry(minutes);
     });
+  }
+
+  displayEntry(minutes) {
+    const entry = document.createElement('li');
+    entry.textContent = `${minutes} minutes`;
+    this.entriesList.appendChild(entry);
+
+    // Update total time displayed
+    this.totalTime += minutes;
+    this.totalTimeDisplay.textContent = this.totalTime;
   }
 
   initListeners() {
