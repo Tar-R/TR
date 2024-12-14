@@ -13,7 +13,7 @@ header {
   background: linear-gradient(to right, #ff7e5f, #3498db); /* Pink to Blue gradient */
   color: white;
   padding: 20px;
-  border-bottom: 5px solid transparent; /* Transparent border */
+  border-bottom: 5px solid transparent; /* Transparent border initially */
   border-image: linear-gradient(to right, #ff7e5f, #3498db) 1; /* Gradient border */
 }
 
@@ -24,21 +24,6 @@ h1 {
   -webkit-background-clip: text;
   color: transparent; /* To apply the gradient to the text */
   font-weight: bold;
-  position: relative;
-  display: inline-block; /* Makes the background behave like a box around the text */
-}
-
-h1::before {
-  content: 'Procrastination Nation'; /* Set the text content for the background */
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: white; /* White background */
-  z-index: -1; /* Position the background behind the text */
-  padding: 2px; /* Padding around the text */
-  border-radius: 4px; /* Optional: makes the background slightly rounded */
 }
 
 /* Timer Container */
@@ -59,7 +44,8 @@ h1::before {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   transition: transform 0.3s ease;
-  border: 0px solid white; /* White border for the timer cards */
+  border: 2px solid transparent; /* Transparent border */
+  border-image: linear-gradient(to right, #ff7e5f, #3498db) 1; /* Gradient border */
 }
 
 .timer:hover {
@@ -129,7 +115,8 @@ footer {
   padding: 20px;
   margin-top: 30px;
   font-size: 1.2em;
-  border-top: 0px; /* White border */
+  border-top: 2px solid transparent; /* Transparent border */
+  border-image: linear-gradient(to right, #ff7e5f, #3498db) 1; /* Gradient border */
 }
 
 /* YouTube Embedding */
