@@ -1,3 +1,7 @@
+// Ensure Firebase imports are correct
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+import { getDatabase, ref, push, set, onChildAdded } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+
 // Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBZIm5-FIF60sUPsCFY4AWw3oiMOxnW3W8",
@@ -9,15 +13,11 @@ const firebaseConfig = {
   appId: "1:190293942527:web:57a6b4cb28b8d1adae2cca"
 };
 
-// Initialize Firebase (Modular Version)
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Utility Functions
+// Utility function to format time
 function formatTime(seconds) {
   const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
   const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
@@ -25,7 +25,7 @@ function formatTime(seconds) {
   return `${hrs}:${mins}:${secs}`;
 }
 
-// Timer Functionality
+// Timer functionality
 class Timer {
   constructor(user) {
     this.user = user;
@@ -33,7 +33,7 @@ class Timer {
     this.intervalId = null;
     this.totalTime = 0;
 
-    // Get DOM Elements
+    // Get DOM elements
     this.startBtn = document.getElementById(`${user}-start-btn`);
     this.stopBtn = document.getElementById(`${user}-stop-btn`);
     this.timerDisplay = document.getElementById(`${user}-timer-display`);
@@ -74,7 +74,16 @@ class Timer {
   saveEntry(minutes) {
     const userRef = ref(db, `timers/${this.user}`);
     const newEntryRef = push(userRef);
-    newEntryRef.set({ minutes, timestamp: Date.now() });
+
+    // Using set correctly with the new entry reference
+    set(newEntryRef, {
+      minutes: minutes,
+      timestamp: Date.now(),
+    }).then(() => {
+      console.log('Entry saved to Firebase.');
+    }).catch((error) => {
+      console.error('Error saving entry:', error);
+    });
   }
 
   syncEntries() {
