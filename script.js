@@ -18,7 +18,7 @@ function formatTime(seconds) {
   const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
   const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
   const secs = String(seconds % 60).padStart(2, '0');
-  return `${hrs}:${mins}:${secs}`;
+  return ${hrs}:${mins}:${secs};
 }
 
 // Timer Functionality
@@ -29,11 +29,11 @@ class Timer {
     this.intervalId = null;
     this.totalTime = 0;
 
-    this.startBtn = document.getElementById(`${user}-start-btn`);
-    this.stopBtn = document.getElementById(`${user}-stop-btn`);
-    this.timerDisplay = document.getElementById(`${user}-timer-display`);
-    this.entriesList = document.getElementById(`${user}-entries`);
-    this.totalTimeDisplay = document.getElementById(`${user}-total-time`);
+    this.startBtn = document.getElementById(${user}-start-btn);
+    this.stopBtn = document.getElementById(${user}-stop-btn);
+    this.timerDisplay = document.getElementById(${user}-timer-display);
+    this.entriesList = document.getElementById(${user}-entries);
+    this.totalTimeDisplay = document.getElementById(${user}-total-time);
 
     this.initListeners();
     this.syncEntries();
@@ -64,31 +64,25 @@ class Timer {
   }
 
   saveEntry(minutes) {
-    const newEntryRef = db.ref(`timers/${this.user}`).push();
-    newEntryRef.set({ minutes, timestamp: Date.now() });
+    const ref = db.ref(timers/${this.user}).push();
+    ref.set({ minutes, timestamp: Date.now() });
   }
 
   syncEntries() {
-    const ref = db.ref(`timers/${this.user}`);
+    const ref = db.ref(timers/${this.user});
     ref.on('child_added', (snapshot) => {
       const { minutes } = snapshot.val();
       const entry = document.createElement('li');
-      entry.textContent = `${minutes} minutes`;
+      entry.textContent = ${minutes} minutes;
       this.entriesList.appendChild(entry);
 
-      this.totalTimeDisplay.textContent = `Total Time: ${this.totalTime + minutes} minutes`;
+      this.totalTimeDisplay.textContent = this.totalTime;
     });
   }
 
   initListeners() {
-    this.startBtn.addEventListener('click', () => {
-      console.log(`${this.user}: Start button clicked`);
-      this.startTimer();
-    });
-    this.stopBtn.addEventListener('click', () => {
-      console.log(`${this.user}: Stop button clicked`);
-      this.stopTimer();
-    });
+    this.startBtn.addEventListener('click', () => this.startTimer());
+    this.stopBtn.addEventListener('click', () => this.stopTimer());
   }
 }
 
