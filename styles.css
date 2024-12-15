@@ -145,54 +145,6 @@ iframe {
   height: 400px;
 }
 
-/* Image Overlay Container */
-.image-overlay {
-  position: absolute; /* Makes it overlay the content */
-  top: 50%; /* Centers the container vertically */
-  left: 50%; /* Centers the container horizontally */
-  transform: translate(-50%, -50%); /* Fine-tunes positioning to ensure center alignment */
-  width: 100%; /* Ensures container takes the full width */
-  height: 100%; /* Ensures container takes full height of the screen */
-  z-index: 1; /* Ensures overlay images are on top of other content */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px; /* Adds spacing between the images */
-}
-
-/* Base styling for images */
-.image-overlay img {
-  position: absolute;
-  width: 150px; /* Adjust as per your preference */
-  height: auto;
-  opacity: 1; /* Optional opacity */
-  transition: transform 0.3s ease;
-}
-
-/* Position for Image 1 */
-.image1 {
-  top: 25%; /* Adjust vertically */
-  left: 10%; /* Adjust horizontally */
-}
-
-/* Position for Image 2 */
-.image2 {
-  top: 25%; /* Adjust vertically */
-  left: 30%; /* Adjust horizontally */
-}
-
-/* Position for Image 3 */
-.image3 {
-  top: 50%; /* Adjust vertically */
-  left: 10%; /* Adjust horizontally */
-}
-
-/* Position for Image 4 */
-.image4 {
-  top: 50%; /* Adjust vertically */
-  left: 30%; /* Adjust horizontally */
-}
-
 /* Responsive Footer for Smaller Screens (Mobile) */
 @media (max-width: 767px) {
   footer {
