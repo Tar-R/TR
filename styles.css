@@ -171,8 +171,8 @@ iframe {
 
 /* Position for Image 1 */
 .image1 {
-  top: 25%; /* Adjust vertically */
-  left: 10%; /* Adjust horizontally */
+  margin-left: 10px; /* Adjusts horizontally */
+  margin-top: -30px; /* Adjusts vertically */
 }
 
 /* Position for Image 2 */
