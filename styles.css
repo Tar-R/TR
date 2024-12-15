@@ -145,6 +145,47 @@ iframe {
   height: 400px;
 }
 
+.image-overlay {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Base styling for images */
+.image-overlay img {
+  position: absolute;
+  width: 200px; /* Or set your preferred size */
+  height: auto;
+  opacity: 0.8; /* Optional opacity */
+}
+
+/* Position for Image 1 */
+.image1 {
+  top: 25%; /* Adjust vertically */
+  left: 10%; /* Adjust horizontally */
+}
+
+/* Position for Image 2 */
+.image2 {
+  top: 25%; /* Adjust vertically */
+  left: 30%; /* Adjust horizontally */
+}
+
+/* Position for Image 3 */
+.image3 {
+  top: 50%; /* Adjust vertically */
+  left: 10%; /* Adjust horizontally */
+}
+
+/* Position for Image 4 */
+.image4 {
+  top: 50%; /* Adjust vertically */
+  left: 30%; /* Adjust horizontally */
+}
+
 /* Responsive Footer for Smaller Screens (Mobile) */
 @media (max-width: 767px) {
   footer {
