@@ -44,6 +44,8 @@ h1 {
   top: 0;
   left: 0;
   pointer-events: none; /* Allow mouse events to pass through to the underlying button */
+  width: 50px;
+  height: 50px; /* Specify the height explicitly */
 }
 
 
