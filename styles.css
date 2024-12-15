@@ -165,14 +165,14 @@ iframe {
   position: absolute;
   width: 150px; /* Adjust as per your preference */
   height: auto;
-  opacity: 0.8; /* Optional opacity */
+  opacity: 1; /* Optional opacity */
   transition: transform 0.3s ease;
 }
 
 /* Position for Image 1 */
 .image1 {
-  margin-left: 10px; /* Adjusts horizontally */
-  margin-top: -30px; /* Adjusts vertically */
+  top: 25%; /* Adjust vertically */
+  left: 10%; /* Adjust horizontally */
 }
 
 /* Position for Image 2 */
