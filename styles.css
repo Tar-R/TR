@@ -6,8 +6,6 @@ body {
   background: linear-gradient(to right, #f8bbd0, #bbdefb); /* Gradient from baby pink to baby blue */
   color: #333;
   text-align: center;
-  position: relative; /* Ensure the absolute positioning works for overlay */
-  overflow: hidden; /* Prevents overflow issues */
 }
 
 /* Header Styling */
@@ -149,42 +147,50 @@ iframe {
 
 /* Image Overlay Container */
 .image-overlay {
-  position: absolute; /* Overlay the content */
-  top: 50%; /* Centers vertically */
-  left: 50%; /* Centers horizontally */
-  transform: translate(-50%, -50%); /* Adjust to ensure perfect center */
+  position: absolute; /* Makes it overlay the content */
+  top: 50%; /* Centers the container vertically */
+  left: 50%; /* Centers the container horizontally */
+  transform: translate(-50%, -50%); /* Fine-tunes positioning to ensure center alignment */
+  width: 100%; /* Ensures container takes the full width */
+  height: 100%; /* Ensures container takes full height of the screen */
+  z-index: 10; /* Ensures overlay images are on top of other content */
   display: flex;
-  justify-content: space-around; /* Ensures images have space around them */
-  align-items: center; /* Vertically center them */
-  gap: 20px; /* Add space between images */
-  z-index: 10; /* Ensures it's on top of other content */
-  width: 100%;
-  height: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* Adds spacing between the images */
 }
 
 /* Base styling for images */
 .image-overlay img {
-  width: 150px; /* Set width as needed */
+  position: absolute;
+  width: 150px; /* Adjust as per your preference */
   height: auto;
   opacity: 0.8; /* Optional opacity */
   transition: transform 0.3s ease;
 }
 
-/* Adjust individual image positions */
+/* Position for Image 1 */
 .image1 {
-  /* No specific adjustment needed, can add if necessary */
+  margin-left: 10px; /* Adjusts horizontally */
+  margin-top: -30px; /* Adjusts vertically */
 }
 
+/* Position for Image 2 */
 .image2 {
-  /* Optional adjustments for image 2 */
+  top: 25%; /* Adjust vertically */
+  left: 30%; /* Adjust horizontally */
 }
 
+/* Position for Image 3 */
 .image3 {
-  /* Optional adjustments for image 3 */
+  top: 50%; /* Adjust vertically */
+  left: 10%; /* Adjust horizontally */
 }
 
+/* Position for Image 4 */
 .image4 {
-  /* Optional adjustments for image 4 */
+  top: 50%; /* Adjust vertically */
+  left: 30%; /* Adjust horizontally */
 }
 
 /* Responsive Footer for Smaller Screens (Mobile) */
