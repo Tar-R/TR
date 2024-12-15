@@ -39,6 +39,15 @@ h1 {
   margin-right: auto; /* Centers the container horizontally */
 }
 
+.overlay-image {
+  position: absolute; /* Absolute positioning to overlay the image */
+  top: 0;
+  left: 0;
+  pointer-events: none; /* Allow mouse events to pass through to the underlying button */
+}
+
+
+
 /* Timer Styling */
 .timer {
   padding: 20px;
