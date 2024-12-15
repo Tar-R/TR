@@ -29,16 +29,20 @@ h1 {
 /* Timer Container */
 .timer-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center; /* Align timers horizontally in the center */
   margin-top: 20px;
   flex-wrap: wrap; /* Make the timers responsive */
-  gap: 20px;
+  gap: 10px; /* Reduced gap to bring timers closer */
+  width: 80%; /* Ensures the container is not too wide */
+  max-width: 900px; /* Limit the width to prevent the timers from being too spread out */
+  margin-left: auto; /* Centers the container horizontally */
+  margin-right: auto; /* Centers the container horizontally */
 }
 
 /* Timer Styling */
 .timer {
   padding: 20px;
-  width: 45%;
+  width: 45%; /* Adjust width of timers */
   max-width: 400px;
   border-radius: 50px; /* Increased border-radius for cuter corners */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
